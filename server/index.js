@@ -1,5 +1,6 @@
 import express from "express"
 import createAccount from "./routes/createAccount.js";
+import login from './routes/login.js'
 import connectToDb from "./utils/connectToDb.js";
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
@@ -18,6 +19,9 @@ app.get("/", (req,res) => {
 
 // create account
 app.use('/create-account', createAccount);
+
+// login to account
+app.use('/login', login);
 
 app.listen(port,() => {
     console.log(`server running on http://localhost:${port}`);

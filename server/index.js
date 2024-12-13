@@ -4,6 +4,9 @@ import login from './routes/login.js'
 import connectToDb from "./utils/connectToDb.js";
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv'
+import createBlog from "./routes/blog/createBlog.js";
+import getAllBlogs from "./routes/blog/getAllBlogs.js";
+import getUserBlogs from "./routes/blog/getUserBlogs.js";
 
 dotenv.config();
 const app = express();
@@ -22,6 +25,15 @@ app.use('/create-account', createAccount);
 
 // login to account
 app.use('/login', login);
+
+// create a blog
+app.use('/create-blog', createBlog);
+
+// get all blogs
+app.use('/get-all-blogs', getAllBlogs);
+
+// get all blogs by user
+app.use('/get-user-blogs', getUserBlogs);
 
 app.listen(port,() => {
     console.log(`server running on http://localhost:${port}`);

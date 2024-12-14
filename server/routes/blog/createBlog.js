@@ -1,8 +1,12 @@
 import express from 'express'
 import Blog from "../../schema/blogSchema.js"
+import authenticateToken from '../../utils/jwtMiddleware.js';
 
-const createBlog = async (req, res) => {
+const createBlog = express.Router();
+
+createBlog.post('/', authenticateToken,async (req,res) => {
     const {title, content} = req.body;
+    const user = req.user
 
     if(!title || !content) {
         return res.status(400).json({message: "title and content are required"});
@@ -11,7 +15,8 @@ const createBlog = async (req, res) => {
     try {
         const newBlog = new Blog({
             title: title, 
-            content: content
+            content: content,
+            user: user.user._id
         })
     
         await newBlog.save();
@@ -21,8 +26,9 @@ const createBlog = async (req, res) => {
         })
         
     } catch (error) {
+        console.log(error)
         return res.status(400).json({message: "internal server error"});
     }
-}
+})
 
 export default createBlog;

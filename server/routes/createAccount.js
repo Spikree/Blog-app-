@@ -36,6 +36,8 @@ createAccount.post("/" , async (req,res) => {
         expiresIn: "36000m"
     })
 
+    console.log(user)
+
     return res.json({
         user,
         accessToken,

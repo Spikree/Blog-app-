@@ -9,6 +9,7 @@ import getAllBlogs from "./routes/blog/getAllBlogs.js";
 import getUserBlogs from "./routes/blog/getUserBlogs.js";
 import editBlog from "./routes/blog/editBlog.js";
 import getSingleBlog from "./routes/blog/getSingleBlog.js";
+import deleteBlog from "./routes/blog/deleteBlog.js";
 
 dotenv.config();
 const app = express();
@@ -42,6 +43,9 @@ app.use('/edit-blog',editBlog)
 
 // get a blog
 app.use('/get-a-blog',getSingleBlog);
+
+// delete a blog
+app.use('/delete', deleteBlog)
 
 app.listen(port,() => {
     console.log(`server running on http://localhost:${port}`);

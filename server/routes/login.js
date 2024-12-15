@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../schema/userSchema.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const login = express.Router();
 
@@ -18,7 +19,7 @@ login.post("/", async (req, res) => {
   }
 
   try {
-    if (isUser.email == email && isUser.password == password) {
+    if (isUser.email == email && await bcrypt.compare(password, isUser.password)) {
       const user = { user : isUser };
       const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "36000m",

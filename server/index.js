@@ -14,13 +14,13 @@ import deleteBlog from "./routes/blog/deleteBlog.js";
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(express.json())
+app.use(express.json());
 app.use(bodyParser.json());
 connectToDb();
 
 // server running test
 app.get("/", (req,res) => {
- res.json({message: "server is active"})
+ res.json({message: "server is active"});
 })
 
 // create account
@@ -39,13 +39,13 @@ app.use('/get-all-blogs', getAllBlogs);
 app.use('/get-user-blogs', getUserBlogs);
 
 // edit blog
-app.use('/edit-blog',editBlog)
+app.use('/edit-blog',editBlog);
 
 // get a blog
 app.use('/get-a-blog',getSingleBlog);
 
 // delete a blog
-app.use('/delete', deleteBlog)
+app.use('/delete', deleteBlog);
 
 app.listen(port,() => {
     console.log(`server running on http://localhost:${port}`);

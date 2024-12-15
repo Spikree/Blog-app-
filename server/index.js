@@ -10,6 +10,10 @@ import getUserBlogs from "./routes/blog/getUserBlogs.js";
 import editBlog from "./routes/blog/editBlog.js";
 import getSingleBlog from "./routes/blog/getSingleBlog.js";
 import deleteBlog from "./routes/blog/deleteBlog.js";
+import likeBlog from "./routes/blog/interactions/likeBlog.js";
+import commentOnBlog from "./routes/blog/interactions/commentOnBlog.js";
+import getTotalLikes from "./routes/blog/interactions/getTotalLikes.js";
+import getTotalComments from "./routes/blog/interactions/getTotalComments.js";
 
 dotenv.config();
 const app = express();
@@ -46,6 +50,18 @@ app.use('/get-a-blog',getSingleBlog);
 
 // delete a blog
 app.use('/delete', deleteBlog);
+
+// like blog
+app.use('/like', likeBlog);
+
+// comment on blog
+app.use('/comment', commentOnBlog);
+
+// get total likes
+app.use('/get-total-likes', getTotalLikes);
+
+// get total comments 
+app.use('/get-total-comments', getTotalComments);
 
 app.listen(port,() => {
     console.log(`server running on http://localhost:${port}`);

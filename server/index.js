@@ -14,6 +14,7 @@ import likeBlog from "./routes/blog/interactions/likeBlog.js";
 import commentOnBlog from "./routes/blog/interactions/commentOnBlog.js";
 import getTotalLikes from "./routes/blog/interactions/getTotalLikes.js";
 import getTotalComments from "./routes/blog/interactions/getTotalComments.js";
+import searchBlog from "./routes/blog/searchBlog.js";
 
 dotenv.config();
 const app = express();
@@ -62,6 +63,9 @@ app.use('/get-total-likes', getTotalLikes);
 
 // get total comments 
 app.use('/get-total-comments', getTotalComments);
+
+// search for blog
+app.use('/search',searchBlog);
 
 app.listen(port,() => {
     console.log(`server running on http://localhost:${port}`);

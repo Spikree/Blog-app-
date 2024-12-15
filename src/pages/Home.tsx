@@ -1,3 +1,5 @@
+import { AppSidebar } from "@/components/shared/Sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +16,13 @@ const Home = (props: Props) => {
     }
   }, []);
 
-  return <div>Home</div>;
+  return <div>
+    <SidebarProvider>
+      <AppSidebar/>
+      <SidebarTrigger className="text-2xl"/> 
+    <h1>Home</h1>
+    </SidebarProvider>
+  </div>;
 };
 
 export default Home;

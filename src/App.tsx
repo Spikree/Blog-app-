@@ -9,6 +9,8 @@ type Props = {};
 const App = (props: Props) => {
   const navigate = useNavigate();
 
+  
+
   return (
     <div>
       <Routes>

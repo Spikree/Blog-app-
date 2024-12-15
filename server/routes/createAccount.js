@@ -41,10 +41,8 @@ createAccount.post("/" , async (req,res) => {
         expiresIn: "36000m"
     })
 
-    console.log(user)
-
     return res.json({
-        user,
+        email: user.email,
         accessToken,
         message : "account created sucessfully"
     })

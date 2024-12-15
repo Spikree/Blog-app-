@@ -10,8 +10,24 @@ const login = async (email, password) => {
         return response.data;
     } catch (error) {
         console.error("Login Error:", error.message);
-        return { error: error.message };
+        throw error;
     }
 };
 
-export { login };
+const signup = async (username, email, password) => {
+    console.log(username,email,password)
+    try {
+        const response = await axiosInstance.post('/create-account', {
+            userName : username,
+            email,
+            password
+        })
+
+        return response.data
+    } catch (error) {
+        console.log("signup error", error.message);
+        throw error
+    }
+}
+
+export { login, signup };

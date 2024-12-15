@@ -9,16 +9,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { useState } from "react";
-import {login} from "@/api/auth";
-import { useNavigate } from "react-router-dom";
+import {signup} from "@/api/auth";
 import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 
 type Props = {};
 
-const Login = (props: Props) => {
+const Signup = (props: Props) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
   const { toast } = useToast();
   const navigate = useNavigate();
  
@@ -26,20 +27,21 @@ const Login = (props: Props) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await login(email, password);
+      const response = await signup(username,email, password);
       if(response.accessToken) {
         
         localStorage.setItem('token',response.accessToken);
       }
       toast({
-        title: "Logged in successfully",
+        title: "signed up in successfully",
       });
       setEmail("");
       setPassword("")
-      navigate("/home");
+      setUsername("");
+      navigate("/home")
     } catch (error) {
       toast({
-        title: "Login failed",
+        title: "signup failed",
         description: error.response?.data?.message || "Something went wrong",
         variant: "destructive",
       });
@@ -51,12 +53,19 @@ const Login = (props: Props) => {
     <div className="min-h-screen max-w-full flex flex-col justify-center items-center">
       <Card className="w-96 h-full">
         <CardHeader>
-          <CardTitle className="text-4xl">Login</CardTitle>
-          <CardDescription>Login to get access</CardDescription>
+          <CardTitle className="text-4xl">Signup</CardTitle>
+          <CardDescription>Signup to get access</CardDescription>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={(e) => handleSubmit(e)} className="flex flex-col gap-3" action="">
+          <Label htmlFor="email">Username</Label>
+            <Input
+              value={username}
+              required
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+            />
             <Label htmlFor="email">Email</Label>
             <Input
               value={email}
@@ -73,11 +82,11 @@ const Login = (props: Props) => {
               placeholder="Password"
             />
             <Button  type="submit" variant={"outline"}>
-              Login
+              Signup
             </Button>
             <Label>
-              don't have an account?{" "}
-              <span className="text-red-600" onClick={() => {navigate('/create-account')}}>create account</span>
+              already have an account?{" "}
+              <span onClick={() => {navigate("/")}} className="text-red-600">login</span>
             </Label>
           </form>
         </CardContent>
@@ -87,4 +96,4 @@ const Login = (props: Props) => {
   );
 };
 
-export default Login;
+export default Signup;

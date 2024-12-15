@@ -7,7 +7,7 @@ const getAllBlogs = express.Router();
 getAllBlogs.get('/',authenticateToken, async (req,res) => {
     
     try {
-        const blogs = await Blog.find({});
+        const blogs = await Blog.find({}).sort({ createdAt: -1 }) 
         return res.status(200).json({
             message: "Blogs fetched sucessfully",
             blogs

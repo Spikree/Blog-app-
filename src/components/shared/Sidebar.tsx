@@ -1,4 +1,4 @@
-import { LogOutIcon, LucideStickyNote, sticky, StickyNote } from "lucide-react";
+import { Book, LogOutIcon, SquarePlus, StickyNote } from "lucide-react";
 
 import {
   Sidebar,
@@ -7,8 +7,7 @@ import {
   SidebarGroup,
   SidebarHeader,
   SidebarMenuButton,
-} from "@/components/ui/sidebar";
-import { useEffect } from "react";
+} from "@/components/ui/sidebar"
 import { useNavigate } from "react-router-dom";
 
 export function AppSidebar() {
@@ -32,11 +31,14 @@ export function AppSidebar() {
         <br />
         <SidebarContent>
           <SidebarGroup className="flex gap-4">
+          <SidebarMenuButton className="text-xl">
+              <SquarePlus/> Publish a blog
+            </SidebarMenuButton>
             <SidebarMenuButton className="text-xl">
               <StickyNote></StickyNote> Blogs
             </SidebarMenuButton>
             <SidebarMenuButton className="text-xl">
-              <LucideStickyNote></LucideStickyNote> Your blogs
+              <Book/> Your blogs
             </SidebarMenuButton>
           </SidebarGroup>
         </SidebarContent>

@@ -1,5 +1,4 @@
 import { Book, LogOutIcon, SquarePlus, StickyNote } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -7,12 +6,13 @@ import {
   SidebarGroup,
   SidebarHeader,
   SidebarMenuButton,
-} from "@/components/ui/sidebar"
-import { useNavigate } from "react-router-dom";
+} from "@/components/ui/sidebar";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export function AppSidebar() {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const route = useLocation();
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -22,6 +22,7 @@ export function AppSidebar() {
   if (!token) {
     return null;
   }
+
   return (
     <div className="z-50">
       <Sidebar className="flex gap-10">
@@ -31,26 +32,43 @@ export function AppSidebar() {
         <br />
         <SidebarContent>
           <SidebarGroup className="flex gap-4">
-          <SidebarMenuButton className="text-xl">
-              <SquarePlus/> Publish a blog
+          <Link to="/home">
+            <SidebarMenuButton
+              variant={route.pathname === "/home" ? "outline" : "default"}
+              className="text-xl"
+            >
+              <StickyNote />
+              Blogs
             </SidebarMenuButton>
-            <SidebarMenuButton className="text-xl">
-              <StickyNote></StickyNote> Blogs
+            </Link>
+
+            <Link to="/publish">
+            <SidebarMenuButton
+              variant={route.pathname === "/publish" ? "outline" : "default"}
+              className="text-xl"
+            >
+              <SquarePlus />
+              Publish a blog
             </SidebarMenuButton>
-            <SidebarMenuButton className="text-xl">
-              <Book/> Your blogs
+            </Link>
+
+            <Link to={"/user-blogs"}>
+            <SidebarMenuButton
+              variant={route.pathname === "/user-blogs" ? "outline" : "default"}
+              className="text-xl"
+            >
+              <Book />
+              Your blogs
             </SidebarMenuButton>
+            </Link>
+
           </SidebarGroup>
         </SidebarContent>
+
         <SidebarFooter className="p-8">
-          <SidebarMenuButton
-            onClick={() => {
-              logout();
-            }}
-            className="text-xl"
-          >
+          <SidebarMenuButton onClick={() => logout()} className="text-xl">
             <LogOutIcon size={24} />
-            logout
+            Logout
           </SidebarMenuButton>
         </SidebarFooter>
       </Sidebar>

@@ -14,4 +14,18 @@ const getBlogs = async (token) => {
     }
 }
 
-export {getBlogs}
+const getUserBlogs = async(token) => {
+    try {
+        const response = await axiosInstance.get("/get-user-blogs",{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
+
+export {getBlogs,getUserBlogs}

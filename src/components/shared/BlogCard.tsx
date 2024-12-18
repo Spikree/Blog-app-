@@ -1,4 +1,4 @@
-import { Heart, MessageCircle } from "lucide-react";
+import { Heart, MessageCircle, Pencil, Trash } from "lucide-react";
 import { Card } from "../ui/card";
 
 type BlogCardProps = {
@@ -9,9 +9,10 @@ type BlogCardProps = {
     user: string;
     _id: string;
   };
+  blogType: string;
 };
 
-const BlogCard = ({ blog }: BlogCardProps) => {
+const BlogCard = ({ blog,blogType }: BlogCardProps) => {
   return (
     <Card className="p-4 max-w-96 flex max-h-64 flex-col gap-3 shadow-md">
       <h1 className="text-2xl font-bold text-gray-800">{blog.title}</h1>
@@ -27,15 +28,29 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         {/* <p>Author ID: {blog.user}</p> */}
       </div>
 
-      <div className="flex gap-3 mt-auto">
-        <Card className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-red-500 cursor-pointer">
-          <Heart className="w-4 h-4" />
-          {/* <span>Like</span> */}
-        </Card>
-        <Card className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-blue-500 cursor-pointer">
-          <MessageCircle className="w-4 h-4" />
-          {/* <span>Comment</span> */}
-        </Card>
+      <div className="flex justify-between">
+        <div className="flex gap-3 mt-auto">
+          <Card className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-red-500 cursor-pointer">
+            <Heart className="w-4 h-4" />
+            {/* <span>Like</span> */}
+          </Card>
+          <Card className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-blue-500 cursor-pointer">
+            <MessageCircle className="w-4 h-4" />
+            {/* <span>Comment</span> */}
+          </Card>
+        </div>
+
+        {blogType === "user-blogs" ? (
+          <div className="flex gap-3">
+            <Card className="px-2 py-2">
+              <Trash className="w-5 h-5 text-gray-600" />
+            </Card>
+
+            <Card className="px-2 py-2">
+              <Pencil className="w-5 h-5 text-gray-600" />
+            </Card>
+          </div>
+        ) : null}
       </div>
     </Card>
   );

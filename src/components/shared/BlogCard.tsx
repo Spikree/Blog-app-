@@ -10,9 +10,10 @@ type BlogCardProps = {
     _id: string;
   };
   blogType: string;
+  blogDelete: (blogId: string) => Promise<void>;
 };
 
-const BlogCard = ({ blog,blogType }: BlogCardProps) => {
+const BlogCard = ({ blog,blogType, blogDelete }: BlogCardProps) => {
   return (
     <Card className="p-4 max-w-96 flex max-h-64 flex-col gap-3 shadow-md">
       <h1 className="text-2xl font-bold text-gray-800">{blog.title}</h1>
@@ -42,12 +43,12 @@ const BlogCard = ({ blog,blogType }: BlogCardProps) => {
 
         {blogType === "user-blogs" ? (
           <div className="flex gap-3">
-            <Card className="px-2 py-2">
-              <Trash className="w-5 h-5 text-gray-600" />
+            <Card className="px-2 py-2 text-gray-600 hover:text-red-700 cursor-pointer">
+              <Trash className="w-5 h-5 " onClick={() => {blogDelete(blog._id)}} />
             </Card>
 
-            <Card className="px-2 py-2">
-              <Pencil className="w-5 h-5 text-gray-600" />
+            <Card className="px-2 py-2 text-gray-600 hover:text-yellow-700 cursor-pointer">
+              <Pencil className="w-5 h-5 " />
             </Card>
           </div>
         ) : null}

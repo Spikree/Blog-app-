@@ -10,10 +10,11 @@ type BlogCardProps = {
     _id: string;
   };
   blogType: string;
-  blogDelete: (blogId: string) => Promise<void>;
+  setShowDeletePopUp: (value: boolean) => void;
+  setBlogId: (value: string) => void;
 };
 
-const BlogCard = ({ blog,blogType, blogDelete }: BlogCardProps) => {
+const BlogCard = ({ blog, blogType, setShowDeletePopUp,setBlogId }: BlogCardProps) => {
   return (
     <Card className="p-4 max-w-96 flex max-h-64 flex-col gap-3 shadow-md">
       <h1 className="text-2xl font-bold text-gray-800">{blog.title}</h1>
@@ -43,8 +44,14 @@ const BlogCard = ({ blog,blogType, blogDelete }: BlogCardProps) => {
 
         {blogType === "user-blogs" ? (
           <div className="flex gap-3">
-            <Card className="px-2 py-2 text-gray-600 hover:text-red-700 cursor-pointer">
-              <Trash className="w-5 h-5 " onClick={() => {blogDelete(blog._id)}} />
+            <Card
+              className="px-2 py-2 text-gray-600 hover:text-red-700 cursor-pointer"
+              onClick={() => {
+                setShowDeletePopUp((prev) => !prev);
+                setBlogId(blog._id);
+              }}
+            >
+              <Trash className="w-5 h-5 " />
             </Card>
 
             <Card className="px-2 py-2 text-gray-600 hover:text-yellow-700 cursor-pointer">

@@ -8,6 +8,7 @@ import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ModeToggle } from "../mode-toggle";
 
 export function AppSidebar() {
   const token = localStorage.getItem("token");
@@ -66,10 +67,17 @@ export function AppSidebar() {
         </SidebarContent>
 
         <SidebarFooter className="p-8">
+
+        <SidebarMenuButton className="text-xl cursor-pointer">
+            <ModeToggle/>
+            theme
+          </SidebarMenuButton>
+
           <SidebarMenuButton onClick={() => logout()} className="text-xl">
             <LogOutIcon size={24} />
             Logout
           </SidebarMenuButton>
+          
         </SidebarFooter>
       </Sidebar>
     </div>

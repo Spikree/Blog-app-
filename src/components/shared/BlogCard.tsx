@@ -12,9 +12,16 @@ type BlogCardProps = {
   blogType: string;
   setShowDeletePopUp: (value: boolean) => void;
   setBlogId: (value: string) => void;
+  setShowEditPopup: (value: boolean) => void;
 };
 
-const BlogCard = ({ blog, blogType, setShowDeletePopUp,setBlogId }: BlogCardProps) => {
+const BlogCard = ({
+  blog,
+  blogType,
+  setShowDeletePopUp,
+  setBlogId,
+  setShowEditPopup,
+}: BlogCardProps) => {
   return (
     <Card className="p-4 max-w-96 flex max-h-64 flex-col gap-3 shadow-md">
       <h1 className="text-2xl font-bold text-gray-800">{blog.title}</h1>
@@ -54,7 +61,12 @@ const BlogCard = ({ blog, blogType, setShowDeletePopUp,setBlogId }: BlogCardProp
               <Trash className="w-5 h-5 " />
             </Card>
 
-            <Card className="px-2 py-2 text-gray-600 hover:text-yellow-700 cursor-pointer">
+            <Card
+              onClick={() => {
+                setShowEditPopup((prev) => !prev);
+              }}
+              className="px-2 py-2 text-gray-600 hover:text-yellow-700 cursor-pointer"
+            >
               <Pencil className="w-5 h-5 " />
             </Card>
           </div>

@@ -6,6 +6,7 @@ import { AppSidebar } from "@/components/shared/Sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast.js";
 import ConfirmDelete from "@/components/shared/ConfirmDelete.js";
+import EditModal from "@/components/shared/EditModal.js";
 
 type Props = {};
 
@@ -23,6 +24,7 @@ const UserBlogs = (props: Props) => {
   const blogType = "user-blogs";
   const { toast } = useToast();
   const [showDeletePopup, setShowDeletePopUp] = useState<boolean>(false);
+  const [showEditPopup, setShowEditPopup] = useState<boolean>(false);
   const [blogId, setBlogId] = useState<string>("");
 
   const getBlogs = useCallback(async () => {
@@ -66,6 +68,7 @@ const UserBlogs = (props: Props) => {
               blog={blog}
               key={blog._id}
               setShowDeletePopUp={setShowDeletePopUp}
+              setShowEditPopup={setShowEditPopup}
               setBlogId={setBlogId}
             />
           ))}
@@ -77,6 +80,7 @@ const UserBlogs = (props: Props) => {
             setShowDeletePopUp={setShowDeletePopUp}
           />
         ) : null}
+        {showEditPopup ? <EditModal setShowEditPopup={setShowEditPopup}/> : ""}
       </SidebarProvider>
     </div>
   );

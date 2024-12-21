@@ -100,7 +100,7 @@ const UserBlogs = (props: Props) => {
     <div>
       <SidebarProvider>
         <AppSidebar />
-        <SidebarTrigger />
+        {/* <SidebarTrigger /> */}
         <div className="flex flex-wrap gap-4 p-6">
           {userBlogs.map((blog) => (
             <BlogCard

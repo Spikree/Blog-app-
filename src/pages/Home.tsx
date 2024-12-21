@@ -43,7 +43,7 @@ const Home = () => {
     <div>
       <SidebarProvider>
         <AppSidebar />
-        <SidebarTrigger />
+        {/* <SidebarTrigger /> */}
         <div className="flex flex-wrap gap-4 p-6">
           {blogs.map((blog) => (
             <BlogCard blog={blog} key={blog._id} />

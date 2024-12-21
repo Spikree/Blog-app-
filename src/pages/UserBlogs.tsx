@@ -7,6 +7,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useToast } from "@/hooks/use-toast.js";
 import ConfirmDelete from "@/components/shared/ConfirmDelete.js";
 import EditModal from "@/components/shared/EditModal.js";
+import { getSingleBlog } from "../api/getBlogs.js";
 
 type Props = {};
 
@@ -26,6 +27,8 @@ const UserBlogs = (props: Props) => {
   const [showDeletePopup, setShowDeletePopUp] = useState<boolean>(false);
   const [showEditPopup, setShowEditPopup] = useState<boolean>(false);
   const [blogId, setBlogId] = useState<string>("");
+  const [editBlogTitle, setEditBlogTitle] = useState<string>("");
+  const [editBlogContent, setEditBlogContent] = useState<string>("");
 
   const getBlogs = useCallback(async () => {
     try {
@@ -56,6 +59,17 @@ const UserBlogs = (props: Props) => {
     }
   };
 
+  const fetchSingleBlog = async (token: string, editBlogId: string) => {
+    try {
+      const response = await getSingleBlog(token, editBlogId);
+
+      setEditBlogTitle(response.blog.title);
+      setEditBlogContent(response.blog.content);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <SidebarProvider>
@@ -70,6 +84,7 @@ const UserBlogs = (props: Props) => {
               setShowDeletePopUp={setShowDeletePopUp}
               setShowEditPopup={setShowEditPopup}
               setBlogId={setBlogId}
+              fetchSingleBlog={fetchSingleBlog}
             />
           ))}
         </div>
@@ -80,7 +95,17 @@ const UserBlogs = (props: Props) => {
             setShowDeletePopUp={setShowDeletePopUp}
           />
         ) : null}
-        {showEditPopup ? <EditModal setShowEditPopup={setShowEditPopup}/> : ""}
+        {showEditPopup ? (
+          <EditModal
+            editBlogTitle={editBlogTitle}
+            setEditBlogTitle={setEditBlogTitle}
+            setEditBlogContent={setEditBlogContent}
+            editBlogContent={editBlogContent}
+            setShowEditPopup={setShowEditPopup}
+          />
+        ) : (
+          ""
+        )}
       </SidebarProvider>
     </div>
   );

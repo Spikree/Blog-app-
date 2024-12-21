@@ -6,17 +6,22 @@ import { Textarea } from "../ui/textarea";
 
 type Props = {
     setShowEditPopup: (value: boolean) => void;
+    editBlogTitle: string;
+    editBlogContent: string;
+    setEditBlogTitle: (value: string) => void;
+    setEditBlogContent: (value: string) => void;
 };
 
-const EditModal = ({setShowEditPopup}: Props) => {
+const EditModal = ({setShowEditPopup,editBlogTitle,editBlogContent,setEditBlogTitle,setEditBlogContent}: Props) => {
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <Card className="p-6 w-6/12 flex flex-col gap-6 ">
         <div className="flex flex-col gap-4">
           <Label>Title</Label>
-          <Input />
+          <Input onChange={(e) => setEditBlogTitle(e.target.value)} value={editBlogTitle} />
           <Label>content</Label>
-          <Textarea className="h-96"/>
+          <Textarea onChange={(e) => setEditBlogContent(e.target.value)} value={editBlogContent} className="h-96"/>
         </div>
 
         <div className="flex gap-2">

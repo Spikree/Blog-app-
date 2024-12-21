@@ -28,4 +28,18 @@ const getUserBlogs = async(token) => {
     }
 }
 
-export {getBlogs,getUserBlogs}
+const getSingleBlog = async (token,blogId) => {
+    try {
+        const response = await axiosInstance.get(`/get-a-blog/${blogId}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        return response.data
+    } catch (error) {
+        throw error
+    }
+}
+
+export {getBlogs,getUserBlogs,getSingleBlog}

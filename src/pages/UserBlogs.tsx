@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast.js";
 import ConfirmDelete from "@/components/shared/ConfirmDelete.js";
 import EditModal from "@/components/shared/EditModal.js";
 import { getSingleBlog } from "../api/getBlogs.js";
+import editBlog from "../api/editBlog.js";
 
 type Props = {};
 
@@ -29,6 +30,7 @@ const UserBlogs = (props: Props) => {
   const [blogId, setBlogId] = useState<string>("");
   const [editBlogTitle, setEditBlogTitle] = useState<string>("");
   const [editBlogContent, setEditBlogContent] = useState<string>("");
+  const [editBlogId, setEditBlogId] = useState<string>("");
 
   const getBlogs = useCallback(async () => {
     try {
@@ -70,6 +72,30 @@ const UserBlogs = (props: Props) => {
     }
   };
 
+  const blogEdit = async (
+    token: string,
+    editBlogId: string,
+    editBlogTitle: string,
+    editBlogContent: string
+  ) => {
+    try {
+      const response = await editBlog(
+        token,
+        editBlogId,
+        editBlogTitle,
+        editBlogContent
+      );
+      setShowEditPopup(false);
+      getBlogs();
+      toast({
+        title: "Blog updated sucessfully"
+      })
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <SidebarProvider>
@@ -85,6 +111,7 @@ const UserBlogs = (props: Props) => {
               setShowEditPopup={setShowEditPopup}
               setBlogId={setBlogId}
               fetchSingleBlog={fetchSingleBlog}
+              setEditBlogId={setEditBlogId}
             />
           ))}
         </div>
@@ -102,6 +129,8 @@ const UserBlogs = (props: Props) => {
             setEditBlogContent={setEditBlogContent}
             editBlogContent={editBlogContent}
             setShowEditPopup={setShowEditPopup}
+            blogEdit={blogEdit}
+            editBlogId={editBlogId}
           />
         ) : (
           ""

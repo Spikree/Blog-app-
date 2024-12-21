@@ -14,6 +14,7 @@ type BlogCardProps = {
   setBlogId: (value: string) => void;
   setShowEditPopup: (value: boolean) => void;
   fetchSingleBlog: (value: string) => void
+  setEditBlogId: (value: string) => void;
 };
 
 const BlogCard = ({
@@ -22,7 +23,8 @@ const BlogCard = ({
   setShowDeletePopUp,
   setBlogId,
   setShowEditPopup,
-  fetchSingleBlog
+  fetchSingleBlog,
+  setEditBlogId
 }: BlogCardProps) => {
   const token = localStorage.getItem("token")
   return (
@@ -67,7 +69,8 @@ const BlogCard = ({
             <Card
               onClick={() => {
                 setShowEditPopup((prev) => !prev);
-                fetchSingleBlog(token,blog._id)
+                fetchSingleBlog(token,blog._id);
+                setEditBlogId(blog._id);
               }}
               className="px-2 py-2 text-gray-600 hover:text-yellow-700 cursor-pointer"
             >

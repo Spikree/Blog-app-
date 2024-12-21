@@ -10,9 +10,13 @@ type Props = {
     editBlogContent: string;
     setEditBlogTitle: (value: string) => void;
     setEditBlogContent: (value: string) => void;
+    blogEdit: (value: string) => void
+    editBlogId: string
 };
 
-const EditModal = ({setShowEditPopup,editBlogTitle,editBlogContent,setEditBlogTitle,setEditBlogContent}: Props) => {
+const EditModal = ({setShowEditPopup,editBlogTitle,editBlogContent,setEditBlogTitle,setEditBlogContent,blogEdit,editBlogId}: Props) => {
+
+  const token = localStorage.getItem("token")
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -25,7 +29,7 @@ const EditModal = ({setShowEditPopup,editBlogTitle,editBlogContent,setEditBlogTi
         </div>
 
         <div className="flex gap-2">
-            <Button >Edit</Button>
+            <Button onClick={() => {blogEdit(token,editBlogId,editBlogTitle,editBlogContent)}} >Edit</Button>
             <Button onClick={() => {setShowEditPopup(prev => !prev)}} variant={"secondary"}>Cancel</Button>
         </div>
       </Card>

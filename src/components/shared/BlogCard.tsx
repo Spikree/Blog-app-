@@ -15,6 +15,7 @@ type BlogCardProps = {
   setShowEditPopup: (value: boolean) => void;
   fetchSingleBlog: (value: string) => void
   setEditBlogId: (value: string) => void;
+  likeBlogs: (value: string) => void;
 };
 
 const BlogCard = ({
@@ -24,7 +25,8 @@ const BlogCard = ({
   setBlogId,
   setShowEditPopup,
   fetchSingleBlog,
-  setEditBlogId
+  setEditBlogId,
+  likeBlogs
 }: BlogCardProps) => {
   const token = localStorage.getItem("token")
   return (
@@ -44,7 +46,7 @@ const BlogCard = ({
 
       <div className="flex justify-between">
         <div className="flex gap-3 mt-auto">
-          <Card className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-red-500 cursor-pointer">
+          <Card onClick={() => {likeBlogs(token, blog._id)}} className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-red-500 cursor-pointer">
             <Heart className="w-4 h-4" />
             {/* <span>Like</span> */}
           </Card>

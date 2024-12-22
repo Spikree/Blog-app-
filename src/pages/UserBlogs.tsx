@@ -18,6 +18,7 @@ type Blog = {
   postedOn: string;
   user: string;
   _id: string;
+  hasLiked: boolean;
 };
 
 const UserBlogs = (props: Props) => {
@@ -36,9 +37,12 @@ const UserBlogs = (props: Props) => {
     try {
       const response = await getUserBlogs(token);
       setUserBlogs(response.blogs);
-      console.log("Fetched blogs:", response.blogs);
     } catch (error) {
-      console.log("Error fetching blogs:", error);
+      toast({
+        title: "error fetching blogs",
+        variant: "destructive"
+      })
+      console.error(error)
     }
   }, [token]);
 

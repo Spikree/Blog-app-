@@ -13,7 +13,8 @@ type Blog = {
   postedOn: string;
   user: string;
   _id: string;
-  hasLiked: boolean
+  hasLiked: boolean;
+  totalLikes: number;
 };
 
 const Home = () => {

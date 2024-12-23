@@ -22,12 +22,20 @@ getAllBlogs.get('/', authenticateToken, async (req, res) => {
         // Create a Set of liked blog IDs for efficient lookup
         const likedBlogIds = new Set(userLikes.map(like => like.blog.toString()));
         
-        // Map over blogs to add hasLiked property
-        const blogsWithLikeStatus = blogs.map(blog => {
+        // Get total likes for each blog
+        const likeCounts = await Promise.all(
+            blogs.map(blog => 
+                likeSchema.countDocuments({ blog: blog._id })
+            )
+        );
+        
+        // Map over blogs to add hasLiked property and totalLikes
+        const blogsWithLikeStatus = blogs.map((blog, index) => {
             const blogObj = blog.toObject();
             return {
                 ...blogObj,
-                hasLiked: likedBlogIds.has(blog._id.toString())
+                hasLiked: likedBlogIds.has(blog._id.toString()),
+                totalLikes: likeCounts[index]
             };
         });
         

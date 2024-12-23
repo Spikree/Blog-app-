@@ -8,7 +8,8 @@ type BlogCardProps = {
     postedOn: string;
     user: string;
     _id: string;
-    hasLiked: boolean
+    hasLiked: boolean;
+    totalLikes: number
   };
   blogType: string;
   setShowDeletePopUp: (value: boolean) => void;
@@ -49,7 +50,7 @@ const BlogCard = ({
         <div className="flex gap-3 mt-auto">
           <Card onClick={() => {likeBlogs(token, blog._id)}} className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-red-500 cursor-pointer">
             <Heart className={blog.hasLiked ? "w-4 h-4 text-red-600": "w-4 h-4"} />
-            {/* <span>Like</span> */}
+            <span>{blog.totalLikes}</span>
           </Card>
           <Card className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-blue-500 cursor-pointer">
             <MessageCircle className="w-4 h-4" />

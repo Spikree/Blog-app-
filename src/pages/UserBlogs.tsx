@@ -19,6 +19,7 @@ type Blog = {
   user: string;
   _id: string;
   hasLiked: boolean;
+  totalLikes: number
 };
 
 const UserBlogs = (props: Props) => {

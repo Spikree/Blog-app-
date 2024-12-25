@@ -39,8 +39,8 @@ const BlogPublish = (props: Props) => {
     <SidebarProvider>
       <AppSidebar />
       {/* <SidebarTrigger /> */}
-      <div className="flex ml-96 flex-col justify-center align-middle items-center">
-        <Card className="p-10 fixed  w-6/12">
+      <div className="md:flex md:flex-col md:ml-96 md:justify-center md:items-center md:align-middle flex justify-center flex-col ml-6">
+        <Card className="md:p-10 md:fixed  md:w-6/12 p-4 w-96">
           <form onSubmit={(e) => blogPublish(e)} className="flex flex-col gap-4">
             <label htmlFor="Title">Title</label>
             <Input

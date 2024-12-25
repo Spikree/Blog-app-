@@ -13,8 +13,6 @@ likeBlog.put('/:id',authenticateToken,async(req,res) => {
     try {
         const blog = await Blog.findById(blogId);
 
-        console.log(blog)
-
         if(!blog) {
             return res.status(400).json({message: "Blog not found"})
         }

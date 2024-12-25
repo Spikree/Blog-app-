@@ -9,6 +9,7 @@ import ConfirmDelete from "@/components/shared/ConfirmDelete.js";
 import EditModal from "@/components/shared/EditModal.js";
 import { getSingleBlog } from "../api/getBlogs.js";
 import editBlog from "../api/editBlog.js";
+import {likeBlog} from "../api/likeBlog.js"
 
 type Props = {};
 
@@ -101,6 +102,18 @@ const UserBlogs = (props: Props) => {
     }
   };
 
+  const likeBlogs = async (token: string, blogId: string) => {
+    try {
+      const response = await likeBlog(token,blogId);
+      getBlogs();
+      toast({
+        title: response.message
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <SidebarProvider>
@@ -117,6 +130,7 @@ const UserBlogs = (props: Props) => {
               setBlogId={setBlogId}
               fetchSingleBlog={fetchSingleBlog}
               setEditBlogId={setEditBlogId}
+              likeBlogs={likeBlogs}
             />
           ))}
         </div>

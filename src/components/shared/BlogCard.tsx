@@ -20,7 +20,6 @@ type BlogCardProps = {
   fetchSingleBlog: (value: string) => void
   setEditBlogId: (value: string) => void;
   likeBlogs: (value: string) => void;
-  
 };
 
 const BlogCard = ({
@@ -37,10 +36,10 @@ const BlogCard = ({
   const token = localStorage.getItem("token")
   const navigate = useNavigate();
   return (
-    <Card onClick={() => {navigate(`/blog/${blog._id}`)}} className="p-4 max-w-96 flex max-h-64 flex-col gap-3 shadow-md">
-      <h1 className="text-2xl font-bold text-gray-800">{blog.title}</h1>
+    <Card  className="p-4 max-w-96 flex max-h-64 flex-col gap-3 shadow-md">
+      <h1 onClick={() => {navigate(`/blog/${blog._id}`)}} className="text-2xl font-bold text-gray-800">{blog.title}</h1>
 
-      <p className="text-gray-700 text-sm">
+      <p onClick={() => {navigate(`/blog/${blog._id}`)}} className="text-gray-700 text-sm">
         {blog.content.length > 100
           ? `${blog.content.slice(0, 250)}...`
           : blog.content}

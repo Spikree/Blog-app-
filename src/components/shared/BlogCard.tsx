@@ -1,5 +1,6 @@
 import { Heart, MessageCircle, Pencil, Trash } from "lucide-react";
 import { Card } from "../ui/card";
+import { useNavigate } from "react-router-dom";
 
 type BlogCardProps = {
   blog: {
@@ -31,8 +32,9 @@ const BlogCard = ({
   likeBlogs
 }: BlogCardProps) => {
   const token = localStorage.getItem("token")
+  const navigate = useNavigate();
   return (
-    <Card className="p-4 max-w-96 flex max-h-64 flex-col gap-3 shadow-md">
+    <Card onClick={() => {navigate(`/blog/${blog._id}`)}} className="p-4 max-w-96 flex max-h-64 flex-col gap-3 shadow-md">
       <h1 className="text-2xl font-bold text-gray-800">{blog.title}</h1>
 
       <p className="text-gray-700 text-sm">

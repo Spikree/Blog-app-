@@ -48,7 +48,7 @@ const Login = (props: Props) => {
 
 
   return (
-    <div className="min-h-screen max-w-full flex flex-col justify-center items-center">
+    <div className="min-h-screen max-w-full flex flex-col justify-center items-center align-middle">
       <Card className="w-96 h-full">
         <CardHeader>
           <CardTitle className="text-4xl">Login</CardTitle>

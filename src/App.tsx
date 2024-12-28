@@ -25,7 +25,7 @@ const App = (props: Props) => {
 
   return (
     <SidebarProvider>
-      <div>
+      <div className="">
         {token ? <Card className="block md:hidden m-3 p-2">
           <AppSidebar />
           <SidebarTrigger />
@@ -36,7 +36,7 @@ const App = (props: Props) => {
           <Route path="/home" element={<Home />} />
           <Route path="/publish" element={<BlogPublish />} />
           <Route path="/user-blogs" element={<UserBlogs />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<Blog />} />
         </Routes>
         <Toaster />
       </div>

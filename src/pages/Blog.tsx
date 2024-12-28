@@ -5,6 +5,18 @@ import SingleBlog from "@/components/shared/SingleBlog.js";
 
 type Props = {};
 
+type Comment = {
+  _id: string;
+  user: {
+    _id: string;
+    username: string;
+    profilePicture?: string;
+  };
+  comment: string;
+  createdAt: string;
+  blog: string;
+};
+
 type Blog = {
   title: string;
   content: string;
@@ -13,6 +25,8 @@ type Blog = {
   _id: string;
   hasLiked: boolean;
   totalLikes: number;
+  totalComments: number;
+  comments: Comment[];
 };
 
 const Blog = (props: Props) => {
@@ -21,17 +35,19 @@ const Blog = (props: Props) => {
 
   const [blog, setBlog] = useState<Blog | null>(null);
 
+  const getBlog = async () => {
+    try {
+      const response = await getSingleBlog(token, id);
+      setBlog(response.blog);
+      console.log(blog);
+      console.log(response)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getBlog = async () => {
-      try {
-        const response = await getSingleBlog(token, id);
-        setBlog(response.blog);
-        console.log(blog);
-        console.log(response)
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    
     getBlog();
   }, []);
 
@@ -44,6 +60,9 @@ const Blog = (props: Props) => {
         user={blog?.user}
         totalLikes={blog?.totalLikes}
         hasLiked={blog?.hasLiked}
+        comments={blog?.comments}
+        id={id}
+        getBlog={getBlog}
       />
       
     </div>

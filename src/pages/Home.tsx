@@ -15,6 +15,8 @@ type Blog = {
   _id: string;
   hasLiked: boolean;
   totalLikes: number;
+  totalComments: number;
+
 };
 
 const Home = () => {
@@ -46,6 +48,7 @@ const Home = () => {
     try {
       const response = await likeBlog(token,blogId);
       getAllBlogs();
+      
       toast({
         title: response.message
       })

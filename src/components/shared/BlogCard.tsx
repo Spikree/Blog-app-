@@ -10,7 +10,8 @@ type BlogCardProps = {
     user: string;
     _id: string;
     hasLiked: boolean;
-    totalLikes: number
+    totalLikes: number;
+    totalComments: number;
   };
   blogType: string;
   setShowDeletePopUp: (value: boolean) => void;
@@ -19,6 +20,7 @@ type BlogCardProps = {
   fetchSingleBlog: (value: string) => void
   setEditBlogId: (value: string) => void;
   likeBlogs: (value: string) => void;
+  
 };
 
 const BlogCard = ({
@@ -29,7 +31,8 @@ const BlogCard = ({
   setShowEditPopup,
   fetchSingleBlog,
   setEditBlogId,
-  likeBlogs
+  likeBlogs,
+  totalComments
 }: BlogCardProps) => {
   const token = localStorage.getItem("token")
   const navigate = useNavigate();
@@ -51,12 +54,12 @@ const BlogCard = ({
       <div className="flex justify-between">
         <div className="flex gap-3 mt-auto">
           <Card onClick={() => {likeBlogs(token, blog._id)}} className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-red-500 cursor-pointer">
-            <Heart className={blog.hasLiked ? "w-4 h-4 text-red-600": "w-4 h-4"} />
+            <Heart className={blog.hasLiked ? "w-4 h-4 text-red-600 fill-red-600": "w-4 h-4"} />
             <span>{blog.totalLikes}</span>
           </Card>
           <Card className="px-3 py-2 flex items-center gap-1 text-gray-600 hover:text-blue-500 cursor-pointer">
             <MessageCircle className="w-4 h-4" />
-            {/* <span>Comment</span> */}
+            <span>{blog.totalComments}</span>
           </Card>
         </div>
 

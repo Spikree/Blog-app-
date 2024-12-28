@@ -1,7 +1,8 @@
 import express from 'express'
 import authenticateToken from '../../utils/jwtMiddleware.js'
 import Blog from '../../schema/blogSchema.js'
-import likeSchema from '../../schema/likeSchema.js';
+import likeSchema from '../../schema/likeSchema.js'
+import commentSchema from '../../schema/commentSchema.js'
 
 const getAllBlogs = express.Router();
 
@@ -28,20 +29,28 @@ getAllBlogs.get('/', authenticateToken, async (req, res) => {
                 likeSchema.countDocuments({ blog: blog._id })
             )
         );
+
+        // Get total comments for each blog
+        const commentCounts = await Promise.all(
+            blogs.map(blog =>
+                commentSchema.countDocuments({ blog: blog._id })
+            )
+        );
         
-        // Map over blogs to add hasLiked property and totalLikes
-        const blogsWithLikeStatus = blogs.map((blog, index) => {
+        // Map over blogs to add hasLiked property, totalLikes, and totalComments
+        const blogsWithDetails = blogs.map((blog, index) => {
             const blogObj = blog.toObject();
             return {
                 ...blogObj,
                 hasLiked: likedBlogIds.has(blog._id.toString()),
-                totalLikes: likeCounts[index]
+                totalLikes: likeCounts[index],
+                totalComments: commentCounts[index]
             };
         });
         
         return res.status(200).json({
             message: "Blogs fetched successfully",
-            blogs: blogsWithLikeStatus
+            blogs: blogsWithDetails
         });
     } catch (error) {
         console.error('Error fetching blogs:', error);
